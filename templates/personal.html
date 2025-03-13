@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block extra_head %}
+<script src="{{ url_for('static', filename='js/personal.js') }}"></script>
+{% endblock %}
+{% block content %}
+<h1>Personal Computer View</h1>
+<div class="screen">
+  <p>Click here to take control of the host computer.</p>
+</div>
+
+<!-- Remote control overlay; hidden by default -->
+<div id="remote-control-overlay">
+  <div id="overlay-header">
+    <span>Remote Control - Host Computer</span>
+    <button id="close-remote">Close</button>
+  </div>
+  <!-- The iframe loads the noVNC client pointing to your host's VNC server (adjust URL as needed) -->
+  <iframe src="http://{{ request.host.split(':')[0] }}:6080/vnc.html?host={{ request.host.split(':')[0] }}&port=5900" frameborder="0"></iframe>
+</div>
+
+<!-- Fixed status bar -->
+<div id="status-bar"></div>
+{% endblock %}

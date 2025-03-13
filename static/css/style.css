@@ -1,0 +1,130 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #1f1f1f;
+    padding: 10px;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-right: 20px;
+}
+
+.navbar ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #333;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Editable cell highlight */
+.editable {
+    background-color: #1f1f1f;
+    border: 1px dashed #555;
+}
+
+/* Edit controls */
+.edit-controls {
+    margin-bottom: 10px;
+}
+
+/* VM Tabs */
+.vm-tabs {
+    margin-bottom: 10px;
+}
+
+.vm-tab {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 10px 20px;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.vm-tab.active {
+    background-color: #333;
+}
+
+/* Personal Page: Center screen area */
+.screen {
+    margin: 50px auto;
+    padding: 20px;
+    width: 80%;
+    min-height: 300px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Status bar fixed at the bottom */
+#status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.9em;
+    border-top: 1px solid #333;
+}
+
+/* Remote control overlay */
+#remote-control-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+#remote-control-overlay #overlay-header {
+    background-color: #1f1f1f;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e0e0e0;
+}
+
+#remote-control-overlay iframe {
+    width: 100%;
+    height: calc(100% - 50px);
+    border: none;
+}

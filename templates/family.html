@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Family Information</h1>
+
+<div class="edit-controls">
+    <button id="edit-btn">Edit</button>
+    <button id="save-btn" style="display:none;">Save Changes</button>
+    <button id="cancel-btn" style="display:none;">Cancel</button>
+</div>
+
+<table id="family-table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Relation</th>
+        <th>Birthday</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for member in family %}
+    <tr>
+        <td>{{ member.name }}</td>
+        <td>{{ member.relation }}</td>
+        <td>{{ member.birthday }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function(){
+        let originalData = [];
+        $("#edit-btn").click(function(){
+            originalData = [];
+            $("#family-table tbody tr").each(function(){
+                let rowData = {
+                    name: $(this).find("td").eq(0).text(),
+                    relation: $(this).find("td").eq(1).text(),
+                    birthday: $(this).find("td").eq(2).text()
+                };
+                originalData.push(rowData);
+                $(this).find("td").attr("contenteditable", "true").addClass("editable");
+            });
+            $("#edit-btn").hide();
+            $("#save-btn, #cancel-btn").show();
+        });
+
+        $("#cancel-btn").click(function(){
+            $("#family-table tbody tr").each(function(index){
+                $(this).find("td").eq(0).text(originalData[index].name);
+                $(this).find("td").eq(1).text(originalData[index].relation);
+                $(this).find("td").eq(2).text(originalData[index].birthday);
+                $(this).find("td").removeAttr("contenteditable").removeClass("editable");
+            });
+            $("#edit-btn").show();
+            $("#save-btn, #cancel-btn").hide();
+        });
+
+        $("#save-btn").click(function(){
+            let newFamily = [];
+            $("#family-table tbody tr").each(function(){
+                newFamily.push({
+                    name: $(this).find("td").eq(0).text(),
+                    relation: $(this).find("td").eq(1).text(),
+                    birthday: $(this).find("td").eq(2).text()
+                });
+                $(this).find("td").removeAttr("contenteditable").removeClass("editable");
+            });
+
+            $.ajax({
+                url: "/update_family",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({family: newFamily}),
+                success: function(response){
+                    if(response.status === "success"){
+                        alert("Family info updated successfully.");
+                    } else {
+                        alert("Error updating family info.");
+                    }
+                    $("#edit-btn").show();
+                    $("#save-btn, #cancel-btn").hide();
+                },
+                error: function(){
+                    alert("Error updating family info.");
+                    $("#edit-btn").show();
+                    $("#save-btn, #cancel-btn").hide();
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

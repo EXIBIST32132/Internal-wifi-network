@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Local WiFi Website" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('family') }}">Family Info</a></li>
+        <li><a href="{{ url_for('vms_page') }}">Virtual Machines</a></li>
+        <li><a href="{{ url_for('personal') }}">Personal View</a></li>
+    </ul>
+</nav>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+{% block extra_body %}{% endblock %}
+</body>
+</html>

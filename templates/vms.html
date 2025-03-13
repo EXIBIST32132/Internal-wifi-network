@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block extra_head %}
+<script src="{{ url_for('static', filename='js/vms.js') }}"></script>
+{% endblock %}
+{% block content %}
+<h1>Virtual Machines</h1>
+
+<div class="vm-tabs">
+    <button class="vm-tab active" data-type="windows">Windows</button>
+    <button class="vm-tab" data-type="linux">Linux</button>
+</div>
+
+<div class="vm-controls">
+    <button id="create-vm-btn">Create VM</button>
+</div>
+
+<div id="vm-list">
+    <h2>Running VMs</h2>
+    <ul>
+        {% for vm in vms %}
+        <li>
+            <strong>{{ vm.type|capitalize }} VM</strong> - Status: {{ vm.status }}
+            <!-- Link to your VNC client (e.g., noVNC); adjust the URL as needed -->
+            - <a href="http://{{ request.host.split(':')[0] }}:6080/vnc.html?host={{ request.host.split(':')[0] }}&port={{ vm.vnc_port }}" target="_blank">Access Console</a>
+        </li>
+        {% else %}
+        <li>No VMs running.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
